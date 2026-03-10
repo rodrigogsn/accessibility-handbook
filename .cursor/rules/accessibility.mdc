@@ -1,0 +1,358 @@
+---
+globs: *.tsx,*.ts
+alwaysApply: false
+---
+
+## 0) Purpose & Scope
+
+These rules define accessibility (a11y) requirements for all UI components in this React-based web application. They are hard requirements, not suggestions. All UI components must be accessible to users with disabilities, including those using screen readers, keyboard navigation, touch navigation, or other assistive technologies.
+
+This document applies to:
+
+- React components and hooks
+- HTML/CSS/JavaScript implementations
+
+## 1) Rule Precedence
+
+When rules conflict, follow this order:
+
+1. Accessibility Requirements (this document)
+2. Architecture Layers & Boundaries (from framework-specific best practices)
+3. UI Composition & State (from framework-specific best practices)
+
+Accessibility is non-negotiable and must be considered from the start of component design.
+
+## 2) Semantic HTML (Foundation)
+
+- Use semantic HTML elements over generic `div` or `span` when possible.
+- Prefer native elements: `<button>`, `<nav>`, `<main>`, `<header>`, `<footer>`, `<article>`, `<section>`, `<aside>`, `<form>`, `<input>`, `<label>`, `<select>`, `<textarea>`.
+- Use proper heading hierarchy (`<h1>` through `<h6>`) without skipping levels.
+- Use `<ul>` or `<ol>` for lists, not styled `div` elements.
+- Use `<table>` with proper `<thead>`, `<tbody>`, `<th>`, and `<td>` for tabular data.
+
+### 2.1 When Semantic HTML Isn't Enough
+
+- If a custom component must use a `div` or `span`, add appropriate ARIA roles and properties.
+- Example: `<div role="button" tabindex="0">` only if `<button>` cannot be used.
+- Always prefer native elements first; ARIA is a supplement, not a replacement.
+
+## 3) ARIA Attributes
+
+- ARIA should enhance semantic HTML, not replace it.
+- Use ARIA only when native HTML cannot convey the necessary information.
+- Never use ARIA attributes that conflict with native element semantics (e.g., `role="button"` on a `<button>`).
+
+### 3.1 Common ARIA Patterns
+
+- `aria-label`: Provide accessible name when visible text is insufficient.
+- `aria-labelledby`: Reference element ID that provides the accessible name.
+- `aria-describedby`: Reference element ID that provides additional description.
+- `aria-hidden="true"`: Hide decorative elements from screen readers.
+- `aria-live`: Announce dynamic content changes (use `polite` or `assertive`).
+- `aria-expanded`: Indicate expandable/collapsible state (true/false).
+- `aria-disabled`: Indicate disabled state (use native `disabled` attribute when possible).
+- `aria-required`: Indicate required form fields (use native `required` attribute when possible).
+- `aria-invalid`: Indicate form validation errors (use with `aria-describedby` to reference error message).
+
+### 3.2 ARIA Roles
+
+- Use semantic HTML roles implicitly (e.g., `<button>` has `role="button"`).
+- Add explicit roles only for custom components: `role="dialog"`, `role="alert"`, `role="status"`, `role="region"`, `role="navigation"`, `role="banner"`, `role="contentinfo"`, `role="complementary"`.
+- Avoid redundant roles (e.g., `role="button"` on `<button>`).
+
+## 4) Keyboard Navigation
+
+- All interactive elements must be keyboard accessible.
+- Ensure logical tab order (left-to-right, top-to-bottom in LTR languages).
+- Provide keyboard shortcuts for common actions when appropriate.
+- Never remove keyboard focus without user action (e.g., don't auto-focus on page load unless critical).
+
+### 4.1 Keyboard Event Handling
+
+- Handle keyboard events appropriately for your framework (e.g., `onKeyDown`, `@keydown`, `onKeyPress`).
+- Support standard keys: `Enter` and `Space` for buttons/links, `Escape` for closing modals/dialogs, `Arrow` keys for navigation in lists/menus.
+- Use `event.preventDefault()` only when necessary to override default behavior.
+- Ensure focus management: trap focus in modals, return focus to trigger after closing.
+
+### 4.2 Tab Index
+
+- Use `tabindex="0"` (or framework equivalent) to make custom interactive elements focusable.
+- Use `tabindex="-1"` to remove elements from tab order but keep them programmatically focusable.
+- Never use positive `tabindex` values (e.g., `tabindex="1"`) as they break natural tab order.
+- Prefer native focusable elements (`<button>`, `<a>`, `<input>`) over custom elements with `tabindex`.
+
+## 5) Focus Management
+
+- All focusable elements must have visible focus indicators.
+- Never remove focus outlines with CSS (`outline: none`) without providing custom focus styles.
+- Ensure focus indicators meet WCAG contrast requirements (3:1 contrast ratio minimum).
+
+### 5.1 Focus Trapping
+
+- Trap focus within modals, dialogs, and dropdown menus.
+- Return focus to the trigger element when closing modals/dialogs.
+- Use framework-appropriate methods to manage focus programmatically when needed (e.g., refs, template refs, element references).
+
+### 5.2 Skip Links
+
+- Provide skip links for main content navigation (e.g., "Skip to main content").
+- Place skip links as the first focusable element on the page.
+- Make skip links visible on focus (not hidden with `display: none`).
+
+## 6) Forms & Labels
+
+- Every form input must have an associated `<label>` element.
+- Use `for` attribute on `<label>` to associate with input `id`, or wrap input inside `<label>`.
+- Provide clear, descriptive labels (avoid placeholder text as the only label).
+- Group related form fields with `<fieldset>` and `<legend>`.
+
+### 6.1 Form Validation & Errors
+
+- Associate error messages with inputs using `aria-describedby` and `aria-invalid`.
+- Announce validation errors to screen readers using `aria-live="polite"` regions.
+- Provide clear, actionable error messages.
+- Indicate required fields with `required` attribute and visual indicator (e.g., asterisk with `aria-label="required"`).
+
+### 6.2 Form Examples
+
+See Section 15.5 for mobile form patterns.
+
+## 7) Images & Media
+
+- All images must have `alt` text that describes the image content or purpose.
+- Use empty `alt=""` for decorative images that don't convey information.
+- Use `aria-hidden="true"` for decorative images if they're part of a complex layout.
+- Provide text alternatives for charts, graphs, and infographics.
+
+### 7.1 Image Guidelines
+
+- Alt text should be concise and descriptive (typically 125 characters or less).
+- Avoid redundant phrases like "image of" or "picture of".
+- For functional images (icons, buttons), describe the function, not the image.
+- For complex images (charts, graphs), provide detailed descriptions or link to full description.
+
+### 7.2 Media Alternatives
+
+- Provide captions for video content.
+- Provide transcripts for audio content.
+- Ensure media players have keyboard-accessible controls.
+
+## 8) Color & Contrast
+
+- Color cannot be the only means of conveying information (e.g., "required fields are red").
+- Ensure text meets WCAG contrast requirements:
+  - Normal text: 4.5:1 contrast ratio (WCAG AA)
+  - Large text (18pt+ or 14pt+ bold): 3:1 contrast ratio (WCAG AA)
+  - Enhanced: 7:1 contrast ratio for normal text (WCAG AAA)
+- Ensure interactive elements (buttons, links) have sufficient contrast.
+- Test contrast with tools (e.g., WebAIM Contrast Checker, browser DevTools).
+
+### 8.1 Color Independence
+
+- Use icons, text labels, or patterns in addition to color to convey meaning.
+- Example: Error states should use both red color and an error icon/text, not just red.
+
+## 9) Screen Reader Support
+
+- Ensure all content is accessible to screen readers.
+- Use `aria-live` regions to announce dynamic content updates:
+  - `aria-live="polite"`: Non-urgent updates (e.g., form validation, search results).
+  - `aria-live="assertive"`: Urgent updates (e.g., critical errors, system alerts).
+- Use `aria-atomic` to control whether entire region or only changed content is announced.
+
+### 9.1 Hidden Text
+
+- Use visually hidden but screen-reader-visible text when needed:
+  - `.sr-only` or `.visually-hidden` CSS class.
+  - `aria-label` for simple cases.
+  - `aria-labelledby` or `aria-describedby` for complex cases.
+
+### 9.2 Live Region Examples
+
+See Section 15.3 for mobile form patterns.
+
+## 10) Component Patterns
+
+### 10.1 Buttons
+
+- Use native button element (`<button>`) or appropriate button component.
+- Provide accessible labels (text content or `aria-label`).
+- Indicate loading state with `aria-busy="true"` and `aria-label` update.
+- Ensure disabled buttons are not focusable or clearly indicate disabled state.
+
+### 10.2 Links
+
+- Use native link element (`<a>`) with `href` attribute (not click handlers on `div`).
+- Provide descriptive link text (avoid "click here" or "read more").
+- Indicate external links with `aria-label` or icon with `aria-label="opens in new window"`.
+- Use `target="_blank"` with `rel="noopener noreferrer"` for security (web only).
+
+### 10.3 Modals & Dialogs
+
+- Use proper dialog element (`<dialog>` or `role="dialog"`).
+- Trap focus within the dialog.
+- Provide `aria-labelledby` or `aria-label` for dialog title.
+- Close dialog with `Escape` key.
+- Return focus to trigger element when closing.
+- Use `aria-modal="true"` to indicate modal state (web).
+
+### 10.4 Navigation
+
+- Use `<nav>` element for navigation regions (web).
+- Provide `aria-label` or `aria-labelledby` for navigation landmarks.
+- Use proper list structure (`<ul>`, `<li>`) for navigation items (web).
+- Indicate current page with `aria-current="page"` (web).
+
+### 10.5 Tables
+
+- Use `<table>` with proper structure (`<thead>`, `<tbody>`, `<tfoot>`) for web.
+- Use `<th>` for header cells with `scope` attribute (`scope="col"` or `scope="row"`).
+- Provide `caption` or `aria-label` for table description.
+- For complex tables, use `aria-describedby` to reference detailed descriptions.
+
+## 11) Testing & Validation
+
+- All components must be testable using accessibility queries (as per `test-structure.mdc`).
+- Use framework-appropriate testing libraries with accessibility queries:
+  - React: `@testing-library/react` queries (`getByRole`, `getByLabelText`, `getByText`)
+  - React: `@testing-library/react` queries (`getByRole`, `getByLabelText`, `getByText`)
+- If a component cannot be found via accessible queries, fix the accessibility issue.
+- Test keyboard navigation manually and with automated tools.
+- Use browser DevTools accessibility tree to verify structure (web).
+- Test with screen readers (NVDA, JAWS, VoiceOver) when possible.
+
+### 11.1 Automated Testing
+
+- Use framework-appropriate ESLint plugins for static analysis:
+  - React: `eslint-plugin-jsx-a11y`
+  - React: `eslint-plugin-jsx-a11y`
+- Run accessibility audits with tools like axe DevTools, Lighthouse, or WAVE (web).
+- Include accessibility checks in CI/CD pipeline.
+
+### 11.2 Manual Testing Checklist
+
+- Navigate entire page using only keyboard (Tab, Shift+Tab, Arrow keys, Enter, Space, Escape).
+- Verify all interactive elements are focusable and have visible focus indicators.
+- Test with screen reader (NVDA, JAWS, or VoiceOver).
+- Verify color contrast meets WCAG requirements.
+- Check that all images have appropriate alt text.
+- Verify form labels are properly associated with inputs.
+
+## 12) Type Safety & Accessibility Props
+
+- Extend native element props when creating custom components.
+- Include accessibility-related props in component interfaces/types.
+- Use TypeScript (or framework-equivalent type system) to enforce required accessibility props where applicable.
+
+### 12.1 Accessibility Props Interface (TypeScript Example)
+
+```typescript
+export interface IAccessibilityProps {
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
+  "aria-describedby"?: string;
+  "aria-hidden"?: boolean;
+  "aria-expanded"?: boolean;
+  "aria-disabled"?: boolean;
+  "aria-required"?: boolean;
+  "aria-invalid"?: boolean;
+  "aria-busy"?: boolean;
+  "aria-live"?: "polite" | "assertive" | "off";
+  "aria-atomic"?: boolean;
+  role?: string;
+  tabIndex?: number;
+}
+```
+
+## 13) Common Accessibility Mistakes to Avoid
+
+- Don't use `div` or `span` for buttons or links without proper ARIA and keyboard handling.
+- Don't remove focus outlines without providing custom focus styles.
+- Don't use placeholder text as the only label for form inputs.
+- Don't use color alone to convey information.
+- Don't create custom checkboxes/radios without proper ARIA and keyboard support (prefer native elements or accessible component libraries).
+- Don't hide content with `display: none` if it should be accessible to screen readers (use `.sr-only` instead).
+- Don't use `aria-hidden="true"` on interactive elements or their labels.
+- Don't create infinite scroll without "load more" button or pagination.
+- Don't auto-play media with sound without user control.
+
+## 14) Integration with Existing Rules
+
+- Follow architecture layers from framework-specific best practices (e.g., `react/best-practices-refact.mdc` for React).
+- Accessibility attributes and handlers are part of UI presentation layer.
+- Use framework-appropriate patterns for complex focus management or keyboard event orchestration (e.g., hooks, composables, lifecycle methods).
+- Test accessibility using patterns from `react/test-structure.mdc` (accessible queries).
+
+## 15) Mobile-Specific Accessibility
+
+### 15.1 Touch Target Sizes
+
+- Ensure all interactive elements meet minimum touch target sizes:
+  - iOS: Minimum 44x44 points (Apple HIG)
+  - Android: Minimum 48x48 dp (Material Design)
+  - Web mobile: Minimum 44x44 CSS pixels (WCAG)
+- Provide adequate spacing between touch targets (minimum 8px/points).
+- Consider larger targets for critical actions (e.g., primary buttons).
+
+### 15.2 Gesture Alternatives
+
+- Provide alternative input methods for complex gestures:
+  - Swipe actions should have button alternatives.
+  - Long-press actions should have explicit button or menu options.
+  - Pinch-to-zoom should have button controls.
+- Ensure all functionality is accessible via single-tap interactions when possible.
+
+
+### 15.3 Mobile Form Patterns
+
+- Ensure form inputs are large enough for comfortable interaction (minimum 44pt height).
+- Provide clear labels and error messages.
+- Use appropriate input types (e.g., `email`, `tel`, `number`) to trigger correct keyboard layouts.
+- Group related fields visually and semantically.
+- **iOS Auto-Zoom Prevention**: iOS Safari automatically zooms the viewport when users focus on input fields or other focusable elements with font sizes smaller than 16px (or 16pt). To prevent this auto-zoom behavior:
+  - Set font size to at least 16px/16pt for all input fields, textareas, and focusable elements.
+  - Use CSS `font-size: 16px` or equivalent in your framework's styling system.
+  - Do **not** use the viewport meta tag with `user-scalable=no`, as it disables user zoom and violates WCAG 2.1 SC 1.4.4 (Resize text).
+  - Test on actual iOS devices to verify zoom behavior.
+
+### 15.4 Mobile Navigation Patterns
+
+- Ensure navigation elements are easily accessible.
+- Provide clear navigation hierarchy.
+- Use platform-appropriate navigation patterns (e.g., tab bars, drawer menus).
+- Ensure navigation state is announced to screen readers.
+
+## 15) PR Checklist (Must be satisfied)
+
+- All interactive elements are keyboard accessible.
+- All form inputs have associated labels.
+- All images have appropriate alt text (or aria-hidden for decorative elements).
+- Focus indicators are visible and meet contrast requirements.
+- Touch targets meet minimum size requirements for mobile responsiveness.
+- Color is not the only means of conveying information.
+- ARIA attributes are used correctly.
+- Dynamic content updates are announced via aria-live regions.
+- Components are testable using accessibility queries.
+- Keyboard navigation works correctly (Tab, Enter, Space, Escape, Arrow keys).
+- Screen reader testing completed (or automated tools used).
+- TypeScript types include accessibility props where applicable.
+- No accessibility violations in automated audits (axe, Lighthouse).
+
+## 16) Non-Compliance
+
+- Accessibility violations block PR approval.
+- Components that cannot be tested with accessibility queries must be fixed.
+- Missing labels, alt text, or keyboard/gesture support requires immediate correction.
+- Repeated violations escalate to blocking review.
+
+## 17) Resources
+
+### Web Accessibility
+
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [MDN Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility)
+- [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+- [axe DevTools](https://www.deque.com/axe/devtools/)
+- [React A11y Documentation](https://reactjs.org/docs/accessibility.html)
+
