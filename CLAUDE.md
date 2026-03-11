@@ -73,6 +73,11 @@ These rules target WCAG 2.1 AA compliance for React/TypeScript UIs:
 - Explicitly type function return values and object literals
 - Path alias: `@/*` maps to `./src/*`
 
+### Copy & Content Writing
+
+- Avoid em dashes (`—`) in UI copy and prose. Use commas, periods, or colons to restructure the sentence instead.
+- In page `<title>` metadata, use a pipe (`|`) as the separator, not an em dash.
+
 ### Code Style
 
 Enforced by Prettier (`.prettierrc`):
