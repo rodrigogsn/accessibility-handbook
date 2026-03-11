@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-This is a platform for easy-to-reference accessibility (a11y) tips, recommendations, and dos/don'ts for React/TypeScript developers. It provides both a human-readable handbook (web UI) and machine-readable Cursor IDE rules targeting WCAG 2.1 AA compliance.
+This is a stack-agnostic platform for easy-to-reference web accessibility (a11y) tips, recommendations, and dos/don'ts. The principles apply to any web technology: HTML, React, Vue, Angular, Svelte, or plain JavaScript. It provides a human-readable handbook (web UI) and machine-readable Cursor IDE rules, all targeting WCAG 2.1 AA compliance.
 
 ---
 

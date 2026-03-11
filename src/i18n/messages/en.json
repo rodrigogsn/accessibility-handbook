@@ -1,6 +1,6 @@
 {
   "metadata.siteName": "Accessibility Handbook",
-  "metadata.siteDescription": "A11y standards and components for React apps.",
+  "metadata.siteDescription": "Web accessibility standards and patterns for any stack.",
 
   "common.skipToMain": "Skip to main content",
   "common.home": "Home",
@@ -14,7 +14,7 @@
   "topicHeader.wcagBadgeAriaLabel": "WCAG {number} {title}, Level {level}, opens in new tab",
 
   "home.title": "Accessibility Handbook",
-  "home.subtitle": "A practical reference for building WCAG 2.1 AA compliant React applications. Each topic covers real-world patterns, code comparisons, and the specific success criteria you need to meet.",
+  "home.subtitle": "A practical reference for building WCAG 2.1 AA compliant web experiences. Each topic covers universal patterns, code comparisons, and the specific success criteria you need to meet, regardless of your stack or framework.",
   "home.topicsHeading": "Topics",
 
   "topics.semanticHtml.title": "Semantic HTML Foundation",
