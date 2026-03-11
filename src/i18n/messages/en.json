@@ -1,0 +1,57 @@
+{
+  "metadata.siteName": "Accessibility Handbook",
+  "metadata.siteDescription": "A11y standards and components for React apps.",
+
+  "common.skipToMain": "Skip to main content",
+  "common.home": "Home",
+  "common.topics": "Topics",
+  "common.changeLanguage": "Change language",
+  "common.wcagCriteriaFor": "WCAG criteria for {topic}",
+
+  "topicHeader.breadcrumbNav": "Breadcrumb",
+  "topicHeader.wcagCriteriaLabel": "Relevant WCAG criteria",
+  "topicHeader.levelLabel": "Level {level}",
+  "topicHeader.wcagBadgeAriaLabel": "WCAG {number} {title}, Level {level}, opens in new tab",
+
+  "home.title": "Accessibility Handbook",
+  "home.subtitle": "A practical reference for building WCAG 2.1 AA compliant React applications. Each topic covers real-world patterns, code comparisons, and the specific success criteria you need to meet.",
+  "home.topicsHeading": "Topics",
+
+  "topics.semanticHtml.title": "Semantic HTML Foundation",
+  "topics.semanticHtml.description": "The foundation of accessible web development. Native HTML elements carry inherent meaning that browsers, screen readers, and assistive technologies understand automatically, with no extra work required.",
+  "topics.semanticHtml.pageTitle": "Semantic HTML Foundation | Accessibility Handbook",
+  "topics.semanticHtml.wcagCriteria.1.3.1": "Info and Relationships",
+  "topics.semanticHtml.wcagCriteria.4.1.1": "Parsing",
+  "topics.semanticHtml.wcagCriteria.4.1.2": "Name, Role, Value",
+
+  "topics.semanticHtml.sections.whyThisMatters.heading": "Why This Matters",
+  "topics.semanticHtml.sections.whyThisMatters.para1": "Screen readers and other assistive technologies derive their understanding of a page from the semantic role of HTML elements. A button element announces itself as a button, supports Enter and Space activation, and disabled state, all built in. A nav element creates a landmark users can jump to directly. An h2 element establishes document structure that lets screen reader users skim headings like a table of contents.",
+  "topics.semanticHtml.sections.whyThisMatters.para2": "When you replace these with div and span elements, you strip out all that built-in meaning. You then have to manually recreate it with ARIA, which is harder to get right, easier to break, and requires more code to maintain.",
+
+  "topics.semanticHtml.sections.preferNativeElements.heading": "Prefer Native Elements",
+  "topics.semanticHtml.sections.preferNativeElements.intro": "Always reach for the native element first. It handles keyboard interaction, focus management, and accessible roles automatically.",
+  "topics.semanticHtml.sections.preferNativeElements.avoid1Label": "Avoid: div masquerading as a button",
+  "topics.semanticHtml.sections.preferNativeElements.prefer1Label": "Prefer: native button element",
+  "topics.semanticHtml.sections.preferNativeElements.avoid2Label": "Avoid: div-based navigation",
+  "topics.semanticHtml.sections.preferNativeElements.prefer2Label": "Prefer: semantic nav with list",
+
+  "topics.semanticHtml.sections.headingHierarchy.heading": "Heading Hierarchy",
+  "topics.semanticHtml.sections.headingHierarchy.para": "Use one h1 element per page. Use h2 through h6 in order. Never skip a level. Headings are the primary navigation mechanism for screen reader users: they let people jump directly to sections without reading every word.",
+  "topics.semanticHtml.sections.headingHierarchy.avoidLabel": "Avoid: skipping heading levels",
+  "topics.semanticHtml.sections.headingHierarchy.preferLabel": "Prefer: sequential hierarchy",
+
+  "topics.semanticHtml.sections.lists.heading": "Lists",
+  "topics.semanticHtml.sections.lists.para": "Use ul for unordered and ol for ordered lists. Screen readers announce the list role and item count, which helps users understand the scope before reading each item. Styled div elements convey none of this.",
+  "topics.semanticHtml.sections.lists.avoidLabel": "Avoid: divs styled to look like a list",
+  "topics.semanticHtml.sections.lists.preferLabel": "Prefer: semantic list",
+
+  "topics.semanticHtml.sections.tables.heading": "Tables",
+  "topics.semanticHtml.sections.tables.para": "Use table elements with proper structure for tabular data. The scope attribute on th elements tells screen readers whether a header applies to a column or row. This enables navigation like \"column 2 of 3: Price, $9.99\".",
+  "topics.semanticHtml.sections.tables.avoidLabel": "Avoid: CSS grid pretending to be a table",
+  "topics.semanticHtml.sections.tables.preferLabel": "Prefer: semantic table with headers",
+
+  "topics.semanticHtml.sections.whenNativeIsntEnough.heading": "When Native HTML Isn't Enough",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.para": "Sometimes a design constraint makes a native element impractical. In those cases, ARIA can supplement, but it cannot replace what a native element would have given you for free. Ask: does it have a role, a name, and a state?",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.avoidLabel": "Avoid: div with no semantics",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.preferLabel": "Prefer: ARIA-augmented div (or better, use a button element)"
+}

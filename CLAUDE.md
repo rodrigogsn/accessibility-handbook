@@ -96,6 +96,9 @@ Enforced by Prettier (`.prettierrc`):
 - Booleans: auxiliary verbs — `isLoading`, `hasError`, `canSubmit`
 - Components, interfaces, types: `PascalCase`
 - Directories: `lowercase-with-dashes`
+- **No single-letter or abbreviated variable names** — use full descriptive names at all times. This includes loop variables, destructured params, and intermediate variables (e.g. use `criterion` not `c`, use `sections` not `s`).
+- This applies to every scope: map callbacks, function parameters, destructuring, intermediate constants.
+- Exception: well-established library conventions are allowed (e.g. `intl` for react-intl formatters).
 
 ### File & Module Conventions
 
@@ -163,6 +166,28 @@ ESLint rules enforced (errors block build):
 - `jsx-a11y/no-autofocus` (warning)
 
 Run `npm run lint` before committing. Run `npm run format` to auto-fix formatting.
+
+**After every task that touches source files, always run `npm run format` then `npm run lint` before finishing.**
+
+### Template Literal Indentation
+
+- Content inside template literals must be left-aligned (no leading spaces inherited from the surrounding indentation level). This is especially important for multi-line code strings used in `CodeComparison` components.
+
+**Correct:**
+
+```ts
+const code = `<div>
+  content
+</div>`;
+```
+
+**Wrong:**
+
+```ts
+const code = `<div>
+              content
+            </div>`;
+```
 
 ---
 

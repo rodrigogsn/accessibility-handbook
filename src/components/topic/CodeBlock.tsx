@@ -6,7 +6,11 @@ interface CodeBlockProps {
   className?: string;
 }
 
-export function CodeBlock({ code, language = 'tsx', className }: CodeBlockProps): React.ReactElement {
+export function CodeBlock({
+  code,
+  language = 'tsx',
+  className,
+}: CodeBlockProps): React.ReactElement {
   return (
     <pre
       className={cn('overflow-x-auto rounded-md bg-muted p-4 text-sm leading-relaxed', className)}

@@ -1,10 +1,15 @@
 export type WcagLevel = 'A' | 'AA' | 'AAA';
 
-export interface WcagCriterion {
+// Structural data — no translatable text
+export interface WcagCriterionMeta {
   number: string;
-  title: string;
   level: WcagLevel;
   url: string;
+}
+
+// Full interface used by components (includes translated title)
+export interface WcagCriterion extends WcagCriterionMeta {
+  title: string;
 }
 
 export interface TopicMeta {
@@ -14,31 +19,31 @@ export interface TopicMeta {
   wcagCriteria: WcagCriterion[];
 }
 
-export const semanticHtmlTopic: TopicMeta = {
+// Structural topic data (no translatable text)
+export interface TopicStructure {
+  slug: string;
+  wcagCriteria: WcagCriterionMeta[];
+}
+
+export const semanticHtmlStructure: TopicStructure = {
   slug: 'semantic-html',
-  title: 'Semantic HTML Foundation',
-  description:
-    'The foundation of accessible web development. Native HTML elements carry inherent meaning that browsers, screen readers, and assistive technologies understand automatically — no extra work required.',
   wcagCriteria: [
     {
       number: '1.3.1',
-      title: 'Info and Relationships',
       level: 'A',
       url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html',
     },
     {
       number: '4.1.1',
-      title: 'Parsing',
       level: 'A',
       url: 'https://www.w3.org/WAI/WCAG21/Understanding/parsing.html',
     },
     {
       number: '4.1.2',
-      title: 'Name, Role, Value',
       level: 'A',
       url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html',
     },
   ],
 };
 
-export const allTopics: TopicMeta[] = [semanticHtmlTopic];
+export const allTopicStructures: TopicStructure[] = [semanticHtmlStructure];
