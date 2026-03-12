@@ -4,7 +4,7 @@ import { ContentSection } from '@/components/topic/ContentSection';
 import { CodeComparison } from '@/components/topic/CodeComparison';
 import { WcagCriteriaBadge } from '@/components/topic/WcagCriteriaBadge';
 import { semanticHtmlStructure } from '@/lib/topics';
-import { getIntl } from '@/i18n';
+import { getIntl, getMessages } from '@/i18n';
 import type { Locale } from '@/i18n';
 import type { TopicMeta } from '@/lib/topics';
 
@@ -28,6 +28,7 @@ export default async function SemanticHtmlPage({
 }): Promise<React.ReactElement> {
   const locale = ((await params).locale as Locale) ?? 'en';
   const intl = await getIntl(locale);
+  const messages = await getMessages(locale);
 
   const topic: TopicMeta = {
     ...semanticHtmlStructure,
@@ -75,6 +76,10 @@ export default async function SemanticHtmlPage({
       prefer2Label: intl.formatMessage({
         id: 'topics.semanticHtml.sections.preferNativeElements.prefer2Label',
       }),
+      avoid1Code: messages['topics.semanticHtml.sections.preferNativeElements.avoid1Code'] ?? '',
+      prefer1Code: messages['topics.semanticHtml.sections.preferNativeElements.prefer1Code'] ?? '',
+      avoid2Code: messages['topics.semanticHtml.sections.preferNativeElements.avoid2Code'] ?? '',
+      prefer2Code: messages['topics.semanticHtml.sections.preferNativeElements.prefer2Code'] ?? '',
     },
     headingHierarchy: {
       heading: intl.formatMessage({
@@ -87,6 +92,8 @@ export default async function SemanticHtmlPage({
       preferLabel: intl.formatMessage({
         id: 'topics.semanticHtml.sections.headingHierarchy.preferLabel',
       }),
+      avoidCode: messages['topics.semanticHtml.sections.headingHierarchy.avoidCode'] ?? '',
+      preferCode: messages['topics.semanticHtml.sections.headingHierarchy.preferCode'] ?? '',
     },
     lists: {
       heading: intl.formatMessage({ id: 'topics.semanticHtml.sections.lists.heading' }),
@@ -97,6 +104,8 @@ export default async function SemanticHtmlPage({
       preferLabel: intl.formatMessage({
         id: 'topics.semanticHtml.sections.lists.preferLabel',
       }),
+      avoidCode: messages['topics.semanticHtml.sections.lists.avoidCode'] ?? '',
+      preferCode: messages['topics.semanticHtml.sections.lists.preferCode'] ?? '',
     },
     tables: {
       heading: intl.formatMessage({ id: 'topics.semanticHtml.sections.tables.heading' }),
@@ -107,6 +116,8 @@ export default async function SemanticHtmlPage({
       preferLabel: intl.formatMessage({
         id: 'topics.semanticHtml.sections.tables.preferLabel',
       }),
+      avoidCode: messages['topics.semanticHtml.sections.tables.avoidCode'] ?? '',
+      preferCode: messages['topics.semanticHtml.sections.tables.preferCode'] ?? '',
     },
     whenNativeIsntEnough: {
       heading: intl.formatMessage({
@@ -121,6 +132,8 @@ export default async function SemanticHtmlPage({
       preferLabel: intl.formatMessage({
         id: 'topics.semanticHtml.sections.whenNativeIsntEnough.preferLabel',
       }),
+      avoidCode: messages['topics.semanticHtml.sections.whenNativeIsntEnough.avoidCode'] ?? '',
+      preferCode: messages['topics.semanticHtml.sections.whenNativeIsntEnough.preferCode'] ?? '',
     },
   };
 
@@ -156,35 +169,21 @@ export default async function SemanticHtmlPage({
           <CodeComparison
             avoid={{
               label: sections.preferNativeElements.avoid1Label,
-              code: `// Missing: role, keyboard support, focus, disabled state
-<div onClick={handleSubmit} className="btn">
-  Submit
-</div>`,
+              code: sections.preferNativeElements.avoid1Code,
             }}
             prefer={{
               label: sections.preferNativeElements.prefer1Label,
-              code: `// Built-in: keyboard, focus, role="button", disabled
-<button type="submit" onClick={handleSubmit}>
-  Submit
-</button>`,
+              code: sections.preferNativeElements.prefer1Code,
             }}
           />
           <CodeComparison
             avoid={{
               label: sections.preferNativeElements.avoid2Label,
-              code: `<div className="nav">
-  <div className="nav-item">Home</div>
-  <div className="nav-item">About</div>
-</div>`,
+              code: sections.preferNativeElements.avoid2Code,
             }}
             prefer={{
               label: sections.preferNativeElements.prefer2Label,
-              code: `<nav aria-label="Main">
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About</a></li>
-  </ul>
-</nav>`,
+              code: sections.preferNativeElements.prefer2Code,
             }}
           />
         </ContentSection>
@@ -194,18 +193,11 @@ export default async function SemanticHtmlPage({
           <CodeComparison
             avoid={{
               label: sections.headingHierarchy.avoidLabel,
-              code: `<h1>Accessibility Handbook</h1>
-{/* h2 skipped entirely */}
-<h3>Semantic HTML</h3>
-<h3>ARIA Attributes</h3>`,
+              code: sections.headingHierarchy.avoidCode,
             }}
             prefer={{
               label: sections.headingHierarchy.preferLabel,
-              code: `<h1>Accessibility Handbook</h1>
-
-<h2>Foundations</h2>
-<h3>Semantic HTML</h3>
-<h3>ARIA Attributes</h3>`,
+              code: sections.headingHierarchy.preferCode,
             }}
           />
         </ContentSection>
@@ -215,21 +207,11 @@ export default async function SemanticHtmlPage({
           <CodeComparison
             avoid={{
               label: sections.lists.avoidLabel,
-              code: `<div className="list">
-  <div className="list-item">Perceivable</div>
-  <div className="list-item">Operable</div>
-  <div className="list-item">Understandable</div>
-  <div className="list-item">Robust</div>
-</div>`,
+              code: sections.lists.avoidCode,
             }}
             prefer={{
               label: sections.lists.preferLabel,
-              code: `<ul>
-  <li>Perceivable</li>
-  <li>Operable</li>
-  <li>Understandable</li>
-  <li>Robust</li>
-</ul>`,
+              code: sections.lists.preferCode,
             }}
           />
         </ContentSection>
@@ -239,34 +221,11 @@ export default async function SemanticHtmlPage({
           <CodeComparison
             avoid={{
               label: sections.tables.avoidLabel,
-              code: `<div className="grid grid-cols-3">
-  <div>Name</div>
-  <div>Role</div>
-  <div>Level</div>
-  <div>Alice</div>
-  <div>Engineer</div>
-  <div>Senior</div>
-</div>`,
+              code: sections.tables.avoidCode,
             }}
             prefer={{
               label: sections.tables.preferLabel,
-              code: `<table>
-  <caption>Team members</caption>
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Role</th>
-      <th scope="col">Level</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Alice</td>
-      <td>Engineer</td>
-      <td>Senior</td>
-    </tr>
-  </tbody>
-</table>`,
+              code: sections.tables.preferCode,
             }}
           />
         </ContentSection>
@@ -278,27 +237,11 @@ export default async function SemanticHtmlPage({
           <CodeComparison
             avoid={{
               label: sections.whenNativeIsntEnough.avoidLabel,
-              code: `// No role, no keyboard, no announced state
-<div onClick={toggleMenu} className="menu-trigger">
-  Menu
-</div>`,
+              code: sections.whenNativeIsntEnough.avoidCode,
             }}
             prefer={{
               label: sections.whenNativeIsntEnough.preferLabel,
-              code: `// Has role, keyboard, and announced state
-// Note: <button> is still preferable if styling allows
-<div
-  role="button"
-  tabIndex={0}
-  aria-expanded={isOpen}
-  aria-haspopup="menu"
-  onClick={toggleMenu}
-  onKeyDown={(e) => {
-    if (e.key === 'Enter' || e.key === ' ') toggleMenu();
-  }}
->
-  Menu
-</div>`,
+              code: sections.whenNativeIsntEnough.preferCode,
             }}
           />
         </ContentSection>

@@ -1,0 +1,74 @@
+{
+  "metadata.siteName": "Guia de Acessibilidade",
+  "metadata.siteDescription": "Padrões e práticas de acessibilidade web para qualquer stack.",
+
+  "common.skipToMain": "Pular para o conteúdo principal",
+  "common.home": "Início",
+  "common.topics": "Tópicos",
+  "common.changeLanguage": "Mudar idioma",
+  "common.wcagCriteriaFor": "Critérios WCAG para {topic}",
+
+  "topicHeader.breadcrumbNav": "Navegação estrutural",
+  "topicHeader.wcagCriteriaLabel": "Critérios WCAG relevantes",
+  "topicHeader.levelLabel": "Nível {level}",
+  "topicHeader.wcagBadgeAriaLabel": "WCAG {number} {title}, Nível {level}, abre em nova aba",
+
+  "home.title": "Guia de Acessibilidade",
+  "home.subtitle": "Uma referência prática para criar experiências web em conformidade com WCAG 2.1 AA. Cada tópico cobre padrões universais, comparações de código e os critérios de sucesso que você precisa atender, independentemente da sua stack ou framework.",
+  "home.topicsHeading": "Tópicos",
+
+  "topics.semanticHtml.title": "Fundamentos do HTML Semântico",
+  "topics.semanticHtml.description": "A base do desenvolvimento web acessível. Elementos nativos do HTML carregam significado intrínseco que navegadores, leitores de tela e tecnologias assistivas entendem automaticamente, sem nenhum trabalho adicional.",
+  "topics.semanticHtml.pageTitle": "Fundamentos do HTML Semântico | Guia de Acessibilidade",
+  "topics.semanticHtml.wcagCriteria.1.3.1": "Informações e Relações",
+  "topics.semanticHtml.wcagCriteria.4.1.1": "Análise",
+  "topics.semanticHtml.wcagCriteria.4.1.2": "Nome, Função, Valor",
+
+  "topics.semanticHtml.sections.whyThisMatters.heading": "Por Que Isso Importa",
+  "topics.semanticHtml.sections.whyThisMatters.para1": "Leitores de tela e outras tecnologias assistivas derivam sua compreensão de uma página a partir do papel semântico dos elementos HTML. Um elemento button se anuncia como botão, suporta ativação por Enter e Espaço e estado desabilitado, tudo integrado. Um elemento nav cria um ponto de referência para o qual os usuários podem ir diretamente. Um elemento h2 estabelece a estrutura do documento, permitindo que usuários de leitores de tela percorram os títulos como um sumário.",
+  "topics.semanticHtml.sections.whyThisMatters.para2": "Quando você os substitui por elementos div e span, você remove todo esse significado integrado. Você então precisa recriá-lo manualmente com ARIA, o que é mais difícil de acertar, mais fácil de quebrar e exige mais código para manter.",
+
+  "topics.semanticHtml.sections.preferNativeElements.heading": "Prefira Elementos Nativos",
+  "topics.semanticHtml.sections.preferNativeElements.intro": "Sempre recorra ao elemento nativo primeiro. Ele gerencia a interação por teclado, o gerenciamento de foco e os papéis acessíveis automaticamente.",
+  "topics.semanticHtml.sections.preferNativeElements.avoid1Label": "Evite: div se passando por botão",
+  "topics.semanticHtml.sections.preferNativeElements.prefer1Label": "Prefira: elemento button nativo",
+  "topics.semanticHtml.sections.preferNativeElements.avoid2Label": "Evite: navegação baseada em div",
+  "topics.semanticHtml.sections.preferNativeElements.prefer2Label": "Prefira: nav semântico com lista",
+
+  "topics.semanticHtml.sections.headingHierarchy.heading": "Hierarquia de Títulos",
+  "topics.semanticHtml.sections.headingHierarchy.para": "Use um elemento h1 por página. Use h2 a h6 em ordem. Nunca pule um nível. Títulos são o principal mecanismo de navegação para usuários de leitores de tela: eles permitem que as pessoas pulem diretamente para seções sem ler cada palavra.",
+  "topics.semanticHtml.sections.headingHierarchy.avoidLabel": "Evite: pular níveis de título",
+  "topics.semanticHtml.sections.headingHierarchy.preferLabel": "Prefira: hierarquia sequencial",
+
+  "topics.semanticHtml.sections.lists.heading": "Listas",
+  "topics.semanticHtml.sections.lists.para": "Use ul para listas não ordenadas e ol para listas ordenadas. Leitores de tela anunciam o papel de lista e a contagem de itens, o que ajuda os usuários a entender o escopo antes de ler cada item. Elementos div estilizados não transmitem nada disso.",
+  "topics.semanticHtml.sections.lists.avoidLabel": "Evite: divs estilizadas para parecer uma lista",
+  "topics.semanticHtml.sections.lists.preferLabel": "Prefira: lista semântica",
+
+  "topics.semanticHtml.sections.tables.heading": "Tabelas",
+  "topics.semanticHtml.sections.tables.para": "Use elementos de tabela com estrutura adequada para dados tabulares. O atributo scope nos elementos th informa aos leitores de tela se um cabeçalho se aplica a uma coluna ou linha. Isso permite navegação como \"coluna 2 de 3: Preço, R$9,99\".",
+  "topics.semanticHtml.sections.tables.avoidLabel": "Evite: CSS grid fingindo ser uma tabela",
+  "topics.semanticHtml.sections.tables.preferLabel": "Prefira: tabela semântica com cabeçalhos",
+
+  "topics.semanticHtml.sections.whenNativeIsntEnough.heading": "Quando o HTML Nativo Não é Suficiente",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.para": "Às vezes uma restrição de design torna um elemento nativo impraticável. Nesses casos, ARIA pode complementar, mas não pode substituir o que um elemento nativo teria fornecido gratuitamente. Pergunte: ele tem um papel, um nome e um estado?",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.avoidLabel": "Evite: div sem semântica",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.preferLabel": "Prefira: div com ARIA (ou melhor, use um elemento button)",
+
+  "topics.semanticHtml.sections.preferNativeElements.avoid1Code": "// Faltando: role, suporte a teclado, foco, estado desabilitado\n<div onClick={handleSubmit} className=\"btn\">\n  Enviar\n</div>",
+  "topics.semanticHtml.sections.preferNativeElements.prefer1Code": "// Integrado: teclado, foco, role=\"button\", disabled\n<button type=\"submit\" onClick={handleSubmit}>\n  Enviar\n</button>",
+  "topics.semanticHtml.sections.preferNativeElements.avoid2Code": "<div className=\"nav\">\n  <div className=\"nav-item\">Início</div>\n  <div className=\"nav-item\">Sobre</div>\n</div>",
+  "topics.semanticHtml.sections.preferNativeElements.prefer2Code": "<nav aria-label=\"Principal\">\n  <ul>\n    <li><a href=\"/\">Início</a></li>\n    <li><a href=\"/sobre\">Sobre</a></li>\n  </ul>\n</nav>",
+
+  "topics.semanticHtml.sections.headingHierarchy.avoidCode": "<h1>Guia de Acessibilidade</h1>\n{/* h2 omitido por completo */}\n<h3>HTML Semântico</h3>\n<h3>Atributos ARIA</h3>",
+  "topics.semanticHtml.sections.headingHierarchy.preferCode": "<h1>Guia de Acessibilidade</h1>\n\n<h2>Fundamentos</h2>\n<h3>HTML Semântico</h3>\n<h3>Atributos ARIA</h3>",
+
+  "topics.semanticHtml.sections.lists.avoidCode": "<div className=\"list\">\n  <div className=\"list-item\">Perceptível</div>\n  <div className=\"list-item\">Operável</div>\n  <div className=\"list-item\">Compreensível</div>\n  <div className=\"list-item\">Robusto</div>\n</div>",
+  "topics.semanticHtml.sections.lists.preferCode": "<ul>\n  <li>Perceptível</li>\n  <li>Operável</li>\n  <li>Compreensível</li>\n  <li>Robusto</li>\n</ul>",
+
+  "topics.semanticHtml.sections.tables.avoidCode": "<div className=\"grid grid-cols-3\">\n  <div>Nome</div>\n  <div>Cargo</div>\n  <div>Nível</div>\n  <div>Alice</div>\n  <div>Engenheira</div>\n  <div>Sênior</div>\n</div>",
+  "topics.semanticHtml.sections.tables.preferCode": "<table>\n  <caption>Membros da equipe</caption>\n  <thead>\n    <tr>\n      <th scope=\"col\">Nome</th>\n      <th scope=\"col\">Cargo</th>\n      <th scope=\"col\">Nível</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Alice</td>\n      <td>Engenheira</td>\n      <td>Sênior</td>\n    </tr>\n  </tbody>\n</table>",
+
+  "topics.semanticHtml.sections.whenNativeIsntEnough.avoidCode": "// Sem role, sem teclado, sem estado anunciado\n<div onClick={toggleMenu} className=\"menu-trigger\">\n  Menu\n</div>",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.preferCode": "// Tem role, teclado e estado anunciado\n// Nota: <button> ainda é preferível se o estilo permitir\n<div\n  role=\"button\"\n  tabIndex={0}\n  aria-expanded={isOpen}\n  aria-haspopup=\"menu\"\n  onClick={toggleMenu}\n  onKeyDown={(e) => {\n    if (e.key === 'Enter' || e.key === ' ') toggleMenu();\n  }}\n>\n  Menu\n</div>"
+}

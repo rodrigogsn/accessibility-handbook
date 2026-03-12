@@ -53,5 +53,22 @@
   "topics.semanticHtml.sections.whenNativeIsntEnough.heading": "When Native HTML Isn't Enough",
   "topics.semanticHtml.sections.whenNativeIsntEnough.para": "Sometimes a design constraint makes a native element impractical. In those cases, ARIA can supplement, but it cannot replace what a native element would have given you for free. Ask: does it have a role, a name, and a state?",
   "topics.semanticHtml.sections.whenNativeIsntEnough.avoidLabel": "Avoid: div with no semantics",
-  "topics.semanticHtml.sections.whenNativeIsntEnough.preferLabel": "Prefer: ARIA-augmented div (or better, use a button element)"
+  "topics.semanticHtml.sections.whenNativeIsntEnough.preferLabel": "Prefer: ARIA-augmented div (or better, use a button element)",
+
+  "topics.semanticHtml.sections.preferNativeElements.avoid1Code": "// Missing: role, keyboard support, focus, disabled state\n<div onClick={handleSubmit} className=\"btn\">\n  Submit\n</div>",
+  "topics.semanticHtml.sections.preferNativeElements.prefer1Code": "// Built-in: keyboard, focus, role=\"button\", disabled\n<button type=\"submit\" onClick={handleSubmit}>\n  Submit\n</button>",
+  "topics.semanticHtml.sections.preferNativeElements.avoid2Code": "<div className=\"nav\">\n  <div className=\"nav-item\">Home</div>\n  <div className=\"nav-item\">About</div>\n</div>",
+  "topics.semanticHtml.sections.preferNativeElements.prefer2Code": "<nav aria-label=\"Main\">\n  <ul>\n    <li><a href=\"/\">Home</a></li>\n    <li><a href=\"/about\">About</a></li>\n  </ul>\n</nav>",
+
+  "topics.semanticHtml.sections.headingHierarchy.avoidCode": "<h1>Accessibility Handbook</h1>\n{/* h2 skipped entirely */}\n<h3>Semantic HTML</h3>\n<h3>ARIA Attributes</h3>",
+  "topics.semanticHtml.sections.headingHierarchy.preferCode": "<h1>Accessibility Handbook</h1>\n\n<h2>Foundations</h2>\n<h3>Semantic HTML</h3>\n<h3>ARIA Attributes</h3>",
+
+  "topics.semanticHtml.sections.lists.avoidCode": "<div className=\"list\">\n  <div className=\"list-item\">Perceivable</div>\n  <div className=\"list-item\">Operable</div>\n  <div className=\"list-item\">Understandable</div>\n  <div className=\"list-item\">Robust</div>\n</div>",
+  "topics.semanticHtml.sections.lists.preferCode": "<ul>\n  <li>Perceivable</li>\n  <li>Operable</li>\n  <li>Understandable</li>\n  <li>Robust</li>\n</ul>",
+
+  "topics.semanticHtml.sections.tables.avoidCode": "<div className=\"grid grid-cols-3\">\n  <div>Name</div>\n  <div>Role</div>\n  <div>Level</div>\n  <div>Alice</div>\n  <div>Engineer</div>\n  <div>Senior</div>\n</div>",
+  "topics.semanticHtml.sections.tables.preferCode": "<table>\n  <caption>Team members</caption>\n  <thead>\n    <tr>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Role</th>\n      <th scope=\"col\">Level</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Alice</td>\n      <td>Engineer</td>\n      <td>Senior</td>\n    </tr>\n  </tbody>\n</table>",
+
+  "topics.semanticHtml.sections.whenNativeIsntEnough.avoidCode": "// No role, no keyboard, no announced state\n<div onClick={toggleMenu} className=\"menu-trigger\">\n  Menu\n</div>",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.preferCode": "// Has role, keyboard, and announced state\n// Note: <button> is still preferable if styling allows\n<div\n  role=\"button\"\n  tabIndex={0}\n  aria-expanded={isOpen}\n  aria-haspopup=\"menu\"\n  onClick={toggleMenu}\n  onKeyDown={(e) => {\n    if (e.key === 'Enter' || e.key === ' ') toggleMenu();\n  }}\n>\n  Menu\n</div>"
 }

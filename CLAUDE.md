@@ -78,6 +78,14 @@ These rules target WCAG 2.1 AA compliance for React/TypeScript UIs:
 - Avoid em dashes (`—`) in UI copy and prose. Use commas, periods, or colons to restructure the sentence instead.
 - In page `<title>` metadata, use a pipe (`|`) as the separator, not an em dash.
 
+### i18n: Message Files
+
+- **Every new message key must be added to both `en.json` and `pt-BR.json` at the same time.** Do not leave either file missing a key that exists in the other.
+- Additional locales (e.g. `es`, `fr`) are added later and are not required upfront.
+- Message keys use dot-notation namespacing: `topic.sectionName.fieldName`.
+- Message values use ICU format for interpolation: `"Hello, {name}"`.
+- After adding or changing any message key, run `npm run format && npm run lint` before finishing.
+
 ### Code Style
 
 Enforced by Prettier (`.prettierrc`):

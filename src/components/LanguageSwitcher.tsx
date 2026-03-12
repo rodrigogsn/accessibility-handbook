@@ -5,6 +5,7 @@ import type { Locale } from '@/i18n';
 
 const LANGUAGE_NAMES: Record<Locale, string> = {
   en: '🇺🇸 English',
+  'pt-BR': '🇧🇷 Português (BR)',
 };
 
 interface LanguageSwitcherProps {
