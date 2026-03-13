@@ -6,6 +6,7 @@ import { WcagCriteriaBadge } from '@/components/topic/WcagCriteriaBadge';
 import { semanticHtmlStructure } from '@/lib/topics';
 import { getIntl, getMessages } from '@/i18n';
 import type { Locale } from '@/i18n';
+import { formatRich } from '@/lib/richText';
 import type { TopicMeta } from '@/lib/topics';
 
 export async function generateMetadata({
@@ -54,16 +55,14 @@ export default async function SemanticHtmlPage({
       heading: intl.formatMessage({
         id: 'topics.semanticHtml.sections.whyThisMatters.heading',
       }),
-      para1: intl.formatMessage({ id: 'topics.semanticHtml.sections.whyThisMatters.para1' }),
-      para2: intl.formatMessage({ id: 'topics.semanticHtml.sections.whyThisMatters.para2' }),
+      para1: formatRich(intl, 'topics.semanticHtml.sections.whyThisMatters.para1'),
+      para2: formatRich(intl, 'topics.semanticHtml.sections.whyThisMatters.para2'),
     },
     preferNativeElements: {
       heading: intl.formatMessage({
         id: 'topics.semanticHtml.sections.preferNativeElements.heading',
       }),
-      intro: intl.formatMessage({
-        id: 'topics.semanticHtml.sections.preferNativeElements.intro',
-      }),
+      intro: formatRich(intl, 'topics.semanticHtml.sections.preferNativeElements.intro'),
       avoid1Label: intl.formatMessage({
         id: 'topics.semanticHtml.sections.preferNativeElements.avoid1Label',
       }),

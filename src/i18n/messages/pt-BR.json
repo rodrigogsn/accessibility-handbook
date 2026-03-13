@@ -25,33 +25,33 @@
   "topics.semanticHtml.wcagCriteria.4.1.2": "Nome, Função, Valor",
 
   "topics.semanticHtml.sections.whyThisMatters.heading": "Por Que Isso Importa",
-  "topics.semanticHtml.sections.whyThisMatters.para1": "Leitores de tela e outras tecnologias assistivas derivam sua compreensão de uma página a partir do papel semântico dos elementos HTML. Um elemento button se anuncia como botão, suporta ativação por Enter e Espaço e estado desabilitado, tudo integrado. Um elemento nav cria um ponto de referência para o qual os usuários podem ir diretamente. Um elemento h2 estabelece a estrutura do documento, permitindo que usuários de leitores de tela percorram os títulos como um sumário.",
-  "topics.semanticHtml.sections.whyThisMatters.para2": "Quando você os substitui por elementos div e span, você remove todo esse significado integrado. Você então precisa recriá-lo manualmente com ARIA, o que é mais difícil de acertar, mais fácil de quebrar e exige mais código para manter.",
+  "topics.semanticHtml.sections.whyThisMatters.para1": "Leitores de tela e outras tecnologias assistivas derivam sua compreensão de uma página a partir do papel semântico dos elementos HTML. Um elemento <code>button</code> se anuncia como botão, suporta ativação por <kbd>Enter</kbd> e <kbd>Espaço</kbd> e estado desabilitado, tudo integrado. Um elemento <code>nav</code> cria um ponto de referência para o qual os usuários podem ir diretamente. Um elemento <code>h2</code> estabelece a estrutura do documento, permitindo que usuários de leitores de tela percorram os títulos como um sumário.",
+  "topics.semanticHtml.sections.whyThisMatters.para2": "Quando você os substitui por elementos <code>div</code> e <code>span</code>, você remove todo esse significado integrado. Você então precisa recriá-lo manualmente com ARIA, o que é mais difícil de acertar, mais fácil de quebrar e exige mais código para manter.",
 
   "topics.semanticHtml.sections.preferNativeElements.heading": "Prefira Elementos Nativos",
-  "topics.semanticHtml.sections.preferNativeElements.intro": "Sempre recorra ao elemento nativo primeiro. Ele gerencia a interação por teclado, o gerenciamento de foco e os papéis acessíveis automaticamente.",
+  "topics.semanticHtml.sections.preferNativeElements.intro": "Sempre recorra ao <strong>elemento nativo primeiro</strong>. Ele gerencia a interação por teclado, o gerenciamento de foco e os papéis acessíveis automaticamente.",
   "topics.semanticHtml.sections.preferNativeElements.avoid1Label": "Evite: div se passando por botão",
   "topics.semanticHtml.sections.preferNativeElements.prefer1Label": "Prefira: elemento button nativo",
   "topics.semanticHtml.sections.preferNativeElements.avoid2Label": "Evite: navegação baseada em div",
   "topics.semanticHtml.sections.preferNativeElements.prefer2Label": "Prefira: nav semântico com lista",
 
   "topics.semanticHtml.sections.headingHierarchy.heading": "Hierarquia de Títulos",
-  "topics.semanticHtml.sections.headingHierarchy.para": "Use um elemento h1 por página. Use h2 a h6 em ordem. Nunca pule um nível. Títulos são o principal mecanismo de navegação para usuários de leitores de tela: eles permitem que as pessoas pulem diretamente para seções sem ler cada palavra.",
+  "topics.semanticHtml.sections.headingHierarchy.para": "Use um elemento <code>h1</code> por página. Use <code>h2</code> a <code>h6</code> em ordem. Nunca pule um nível. Títulos são o principal mecanismo de navegação para usuários de leitores de tela: eles permitem que as pessoas pulem diretamente para seções sem ler cada palavra.",
   "topics.semanticHtml.sections.headingHierarchy.avoidLabel": "Evite: pular níveis de título",
   "topics.semanticHtml.sections.headingHierarchy.preferLabel": "Prefira: hierarquia sequencial",
 
   "topics.semanticHtml.sections.lists.heading": "Listas",
-  "topics.semanticHtml.sections.lists.para": "Use ul para listas não ordenadas e ol para listas ordenadas. Leitores de tela anunciam o papel de lista e a contagem de itens, o que ajuda os usuários a entender o escopo antes de ler cada item. Elementos div estilizados não transmitem nada disso.",
+  "topics.semanticHtml.sections.lists.para": "Use <code>ul</code> para listas não ordenadas e <code>ol</code> para listas ordenadas. Leitores de tela anunciam o papel de lista e a contagem de itens, o que ajuda os usuários a entender o escopo antes de ler cada item. Elementos div estilizados não transmitem nada disso.",
   "topics.semanticHtml.sections.lists.avoidLabel": "Evite: divs estilizadas para parecer uma lista",
   "topics.semanticHtml.sections.lists.preferLabel": "Prefira: lista semântica",
 
   "topics.semanticHtml.sections.tables.heading": "Tabelas",
-  "topics.semanticHtml.sections.tables.para": "Use elementos de tabela com estrutura adequada para dados tabulares. O atributo scope nos elementos th informa aos leitores de tela se um cabeçalho se aplica a uma coluna ou linha. Isso permite navegação como \"coluna 2 de 3: Preço, R$9,99\".",
+  "topics.semanticHtml.sections.tables.para": "Use elementos <code>table</code> com estrutura adequada para dados tabulares. O atributo <code>scope</code> nos elementos <code>th</code> informa aos leitores de tela se um cabeçalho se aplica a uma coluna ou linha. Isso permite navegação como \"coluna 2 de 3: Preço, R$9,99\".",
   "topics.semanticHtml.sections.tables.avoidLabel": "Evite: CSS grid fingindo ser uma tabela",
   "topics.semanticHtml.sections.tables.preferLabel": "Prefira: tabela semântica com cabeçalhos",
 
   "topics.semanticHtml.sections.whenNativeIsntEnough.heading": "Quando o HTML Nativo Não é Suficiente",
-  "topics.semanticHtml.sections.whenNativeIsntEnough.para": "Às vezes uma restrição de design torna um elemento nativo impraticável. Nesses casos, ARIA pode complementar, mas não pode substituir o que um elemento nativo teria fornecido gratuitamente. Pergunte: ele tem um papel, um nome e um estado?",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.para": "Às vezes uma restrição de design torna um elemento nativo impraticável. Nesses casos, <strong>ARIA</strong> pode complementar, mas não pode substituir o que um elemento nativo teria fornecido gratuitamente. Pergunte: <em>ele tem um papel, um nome e um estado?</em>",
   "topics.semanticHtml.sections.whenNativeIsntEnough.avoidLabel": "Evite: div sem semântica",
   "topics.semanticHtml.sections.whenNativeIsntEnough.preferLabel": "Prefira: div com ARIA (ou melhor, use um elemento button)",
 
