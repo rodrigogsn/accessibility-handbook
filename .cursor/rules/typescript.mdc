@@ -1,0 +1,42 @@
+---
+globs: *.ts,*.tsx
+alwaysApply: false
+---
+
+## TypeScript Conventions
+
+### Strict Mode
+
+- Strict mode enabled: `strict`, `noImplicitAny`, `strictNullChecks`, `strictFunctionTypes`
+- No `any` type — no `@ts-ignore` without a comment explaining why
+- Explicitly type function return values and object literals
+- Path alias: `@/*` maps to `./src/*`
+
+### Type Safety
+
+- Always use explicit types for function parameters and return values
+- Avoid type assertions (`as`) unless absolutely necessary
+- Use type guards and discriminated unions for type narrowing
+- Prefer interfaces for object shapes, types for unions/intersections
+
+### Examples
+
+**Good:**
+```typescript
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+function getUserById(id: string): User | null {
+  // implementation
+}
+```
+
+**Bad:**
+```typescript
+function getUserById(id: any): any {
+  // implementation
+}
+```

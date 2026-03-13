@@ -1,0 +1,36 @@
+---
+globs: *.ts,*.tsx,*.js,*.jsx,*.json,*.css
+alwaysApply: false
+---
+
+## Linting & Formatting
+
+### ESLint Rules
+
+ESLint rules enforced (errors block build):
+
+- `jsx-a11y/alt-text`
+- `jsx-a11y/anchor-has-content`
+- `jsx-a11y/aria-props`
+- `jsx-a11y/aria-role`
+- `jsx-a11y/label-has-associated-control`
+- `jsx-a11y/no-autofocus` (warning)
+
+### Workflow
+
+- Run `npm run lint` before committing
+- Run `npm run format` to auto-fix formatting
+- **After every task that touches source files, always run `npm run format` then `npm run lint` before finishing.**
+
+### Prettier Configuration
+
+- Prettier automatically sorts Tailwind CSS classes via `prettier-plugin-tailwindcss`
+- All formatting rules are defined in `.prettierrc`
+- Format on save is recommended but not enforced
+
+### Styling Conventions
+
+- Tailwind CSS utility classes (sorted automatically by prettier-plugin-tailwindcss)
+- CSS variable–based theme (defined in `app/globals.css`, consumed via Tailwind config)
+- Class merging via `cn()` from `@/lib/utils`
+- Minimal global styles (reset + typography only in `globals.css`)

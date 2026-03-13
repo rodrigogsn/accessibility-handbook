@@ -1,0 +1,39 @@
+---
+globs: src/i18n/**/*.json
+alwaysApply: false
+---
+
+## Internationalization (i18n) Rules
+
+### Message Files
+
+- **Every new message key must be added to both `en.json` and `pt-BR.json` at the same time.** Do not leave either file missing a key that exists in the other.
+- Additional locales (e.g. `es`, `fr`) are added later and are not required upfront.
+- Message keys use dot-notation namespacing: `topic.sectionName.fieldName`.
+- Message values use ICU format for interpolation: `"Hello, {name}"`.
+
+### Workflow
+
+- After adding or changing any message key, run `npm run format && npm run lint` before finishing.
+- Always verify both language files are in sync before committing.
+
+### Examples
+
+**Good:**
+```json
+{
+  "topic.semanticHtml.title": "Semantic HTML",
+  "topic.semanticHtml.description": "Use semantic HTML elements for better accessibility.",
+  "topic.semanticHtml.example": "Example: {element}"
+}
+```
+
+**Bad:**
+```json
+{
+  "title": "Semantic HTML",
+  "description": "Use semantic HTML elements"
+}
+```
+
+**Also Bad:** Adding a key to `en.json` without adding it to `pt-BR.json` (or vice versa).

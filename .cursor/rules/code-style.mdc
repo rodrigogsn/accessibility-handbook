@@ -1,0 +1,91 @@
+---
+globs: *.ts,*.tsx,*.js,*.jsx,*.json
+alwaysApply: false
+---
+
+## Code Style
+
+Enforced by Prettier (`.prettierrc`):
+
+- 2-space indentation
+- Single quotes
+- Semicolons: yes
+- Trailing commas: all
+- Print width: 100
+- Always use `===` and `!==`
+- No unused variables or imports
+
+## Naming Conventions
+
+- Variables & functions: `camelCase`
+- Booleans: auxiliary verbs — `isLoading`, `hasError`, `canSubmit`
+- Components, interfaces, types: `PascalCase`
+- Directories: `lowercase-with-dashes`
+- **No single-letter or abbreviated variable names** — use full descriptive names at all times. This includes loop variables, destructured params, and intermediate variables (e.g. use `criterion` not `c`, use `sections` not `s`).
+- This applies to every scope: map callbacks, function parameters, destructuring, intermediate constants.
+- Exception: well-established library conventions are allowed (e.g. `intl` for react-intl formatters).
+
+## File & Module Conventions
+
+- Components: `.tsx`, hooks/utilities: `.ts`
+- **Named exports** — avoid default exports
+- File layout order: exported component → subcomponents → hooks/helpers → constants
+- Files must be ≤ 400 lines
+
+## Copy & Content Writing
+
+- Avoid em dashes (`—`) in UI copy and prose. Use commas, periods, or colons to restructure the sentence instead.
+- In page `<title>` metadata, use a pipe (`|`) as the separator, not an em dash.
+
+## Template Literal Indentation
+
+- Content inside template literals must be left-aligned (no leading spaces inherited from the surrounding indentation level). This is especially important for multi-line code strings used in `CodeComparison` components.
+
+**Correct:**
+```ts
+const code = `<div>
+content
+</div>`;
+```
+
+**Wrong:**
+```ts
+const code = `<div>
+              content
+            </div>`;
+```
+
+## Examples
+
+**Good:**
+```ts
+const userList = users.map((user) => {
+  return {
+    id: user.id,
+    name: user.name,
+  };
+});
+
+function calculateTotal(items: Item[]): number {
+  let total = 0;
+  for (const item of items) {
+    total += item.price;
+  }
+  return total;
+}
+```
+
+**Bad:**
+```ts
+const ul = users.map((u) => {
+  return { id: u.id, name: u.n };
+});
+
+function calc(items: Item[]): number {
+  let t = 0;
+  for (const i of items) {
+    t += i.p;
+  }
+  return t;
+}
+```

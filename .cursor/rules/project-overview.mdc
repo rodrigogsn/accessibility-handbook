@@ -1,0 +1,60 @@
+---
+globs: *
+alwaysApply: true
+---
+
+## Repository Purpose
+
+This is a stack-agnostic platform for easy-to-reference web accessibility (a11y) tips, recommendations, and dos/don'ts. The principles apply to any web technology: HTML, React, Vue, Angular, Svelte, or plain JavaScript. It provides a human-readable handbook (web UI) and machine-readable Cursor IDE rules, all targeting WCAG 2.1 AA compliance.
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router, static export)
+- **Language:** TypeScript (strict mode)
+- **Styling:** Tailwind CSS 3 (class-based dark mode, CSS variable theme, Inter font, prettier-plugin-tailwindcss)
+- **UI:** Radix UI primitives + shadcn/ui (`src/components/ui/`)
+- **Icons:** Lucide React
+- **Compiler:** React Compiler enabled (React 19)
+- **Linting:** ESLint — Next.js core web vitals + TypeScript + `eslint-plugin-jsx-a11y`
+- **Formatting:** Prettier with prettier-plugin-tailwindcss
+
+## Development Commands
+
+```bash
+npm run dev       # Start dev server
+npm run build     # Static export build
+npm run lint      # ESLint check
+npm run format    # Prettier format
+```
+
+## Project Structure
+
+```
+src/
+  app/              # Next.js App Router pages + root layout
+  components/
+    ui/             # shadcn/ui accessible components
+  lib/
+    utils.ts        # Shared utilities (cn helper)
+.cursor/
+  rules/
+    accessibility.mdc  # Cursor IDE accessibility rules (WCAG 2.1 AA)
+```
+
+## Key Accessibility Standards
+
+These rules target WCAG 2.1 AA compliance for React/TypeScript UIs:
+
+- **Rule precedence**: Accessibility requirements override all other architectural concerns.
+- **Semantic HTML first**: Prefer native elements (`<button>`, `<nav>`, `<input>`) over ARIA-augmented `div`/`span`.
+- **ARIA**: Supplement semantic HTML only when native elements are insufficient. Never use ARIA that conflicts with native semantics.
+- **Keyboard navigation**: All interactive elements must be keyboard accessible. Support Tab, Enter, Space, Escape, Arrow keys. Never use positive `tabindex` values.
+- **Focus management**: Visible focus indicators required (never `outline: none` without custom replacement). Trap focus in modals; return focus to trigger on close.
+- **Forms**: Every input needs an associated `<label>`. Use `aria-describedby` + `aria-invalid` for validation errors.
+- **Color contrast**: 4.5:1 for normal text, 3:1 for large text (WCAG AA). Color alone cannot convey meaning.
+- **Mobile**: Minimum 44×44px touch targets. iOS input font-size ≥ 16px to prevent auto-zoom (do NOT use `user-scalable=no`).
+- **Testing**: Components must be findable via `@testing-library/react` accessibility queries (`getByRole`, `getByLabelText`). Use `eslint-plugin-jsx-a11y` for static analysis.
+
+## Non-Compliance
+
+Accessibility violations block PR approval. Missing labels, alt text, or keyboard support requires immediate correction.
