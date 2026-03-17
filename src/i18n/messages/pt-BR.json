@@ -10,6 +10,9 @@
 
   "topicHeader.breadcrumbNav": "Navegação estrutural",
   "topicHeader.wcagCriteriaLabel": "Critérios WCAG relevantes",
+  "topicSideNav.ariaLabel": "Nesta página",
+  "topicSideNav.copyLinkLabel": "Copiar link desta seção",
+  "topicSideNav.copiedLabel": "Copiado",
   "topicHeader.levelLabel": "Nível {level}",
   "topicHeader.wcagBadgeAriaLabel": "WCAG {number} {title}, Nível {level}, abre em nova aba",
 
@@ -24,7 +27,7 @@
   "topics.semanticHtml.wcagCriteria.4.1.1": "Análise",
   "topics.semanticHtml.wcagCriteria.4.1.2": "Nome, Função, Valor",
 
-  "topics.semanticHtml.sections.whyThisMatters.heading": "Por Que Isso Importa",
+  "topics.semanticHtml.sections.whyThisMatters.heading": "Por Que Isso É Importante?",
   "topics.semanticHtml.sections.whyThisMatters.para1": "Leitores de tela e outras tecnologias assistivas derivam sua compreensão de uma página a partir do papel semântico dos elementos HTML. Um elemento <code>button</code> se anuncia como botão, suporta ativação por <kbd>Enter</kbd> e <kbd>Espaço</kbd> e estado desabilitado, tudo integrado. Um elemento <code>nav</code> cria um ponto de referência para o qual os usuários podem ir diretamente. Um elemento <code>h2</code> estabelece a estrutura do documento, permitindo que usuários de leitores de tela percorram os títulos como um sumário.",
   "topics.semanticHtml.sections.whyThisMatters.para2": "Quando você os substitui por elementos <code>div</code> e <code>span</code>, você remove todo esse significado integrado. Você então precisa recriá-lo manualmente com ARIA, o que é mais difícil de acertar, mais fácil de quebrar e exige mais código para manter.",
 
@@ -50,7 +53,7 @@
   "topics.semanticHtml.sections.tables.avoidLabel": "Evite: CSS grid fingindo ser uma tabela",
   "topics.semanticHtml.sections.tables.preferLabel": "Prefira: tabela semântica com cabeçalhos",
 
-  "topics.semanticHtml.sections.whenNativeIsntEnough.heading": "Quando o HTML Nativo Não é Suficiente",
+  "topics.semanticHtml.sections.whenNativeIsntEnough.heading": "Quando o HTML Nativo não é Suficiente",
   "topics.semanticHtml.sections.whenNativeIsntEnough.para": "Às vezes uma restrição de design torna um elemento nativo impraticável. Nesses casos, <strong>ARIA</strong> pode complementar, mas não pode substituir o que um elemento nativo teria fornecido gratuitamente. Pergunte: <em>ele tem um papel, um nome e um estado?</em>",
   "topics.semanticHtml.sections.whenNativeIsntEnough.avoidLabel": "Evite: div sem semântica",
   "topics.semanticHtml.sections.whenNativeIsntEnough.preferLabel": "Prefira: div com ARIA (ou melhor, use um elemento button)",

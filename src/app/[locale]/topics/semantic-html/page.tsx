@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { TopicHeader } from '@/components/topic/TopicHeader';
 import { ContentSection } from '@/components/topic/ContentSection';
+import { TopicSideNav } from '@/components/topic/TopicSideNav';
 import { CodeComparison } from '@/components/topic/CodeComparison';
 import { WcagCriteriaBadge } from '@/components/topic/WcagCriteriaBadge';
 import { semanticHtmlStructure } from '@/lib/topics';
@@ -8,6 +9,7 @@ import { getIntl, getMessages } from '@/i18n';
 import type { Locale } from '@/i18n';
 import { formatRich } from '@/lib/richText';
 import type { TopicMeta } from '@/lib/topics';
+import { camelToKebab } from '@/lib/utils';
 
 export async function generateMetadata({
   params,
@@ -24,9 +26,9 @@ export async function generateMetadata({
 
 export default async function SemanticHtmlPage({
   params,
-}: {
+}: Readonly<{
   params: Promise<{ locale: string }>;
-}): Promise<React.ReactElement> {
+}>): Promise<React.ReactElement> {
   const locale = ((await params).locale as Locale) ?? 'en';
   const intl = await getIntl(locale);
   const messages = await getMessages(locale);
@@ -136,115 +138,164 @@ export default async function SemanticHtmlPage({
     },
   };
 
+  const sideNavLinks = Object.entries(sections).map(([key, value]) => ({
+    id: camelToKebab(key),
+    label: value.heading,
+  }));
+
+  const topicSideNavLabels = {
+    ariaLabel: intl.formatMessage({ id: 'topicSideNav.ariaLabel' }),
+  };
+
+  const copySectionLabels = {
+    copyLinkLabel: intl.formatMessage({ id: 'topicSideNav.copyLinkLabel' }),
+    copiedLabel: intl.formatMessage({ id: 'topicSideNav.copiedLabel' }),
+  };
+
   return (
-    <main id="main-content" className="mx-auto max-w-3xl px-6 py-12">
-      <TopicHeader topic={topic} locale={locale} labels={topicHeaderLabels}>
-        {topic.wcagCriteria.map((criterion) => (
-          <WcagCriteriaBadge
-            key={criterion.number}
-            criterion={criterion}
-            levelLabel={intl.formatMessage(
-              { id: 'topicHeader.levelLabel' },
-              { level: criterion.level },
-            )}
-            ariaLabel={intl.formatMessage(
-              { id: 'topicHeader.wcagBadgeAriaLabel' },
-              { number: criterion.number, title: criterion.title, level: criterion.level },
-            )}
-          />
-        ))}
-      </TopicHeader>
+    <>
+      <TopicSideNav links={sideNavLinks} ariaLabel={topicSideNavLabels.ariaLabel} />
+      <main id="main-content" className="mx-auto max-w-3xl px-6 py-12">
+        <TopicHeader topic={topic} locale={locale} labels={topicHeaderLabels}>
+          {topic.wcagCriteria.map((criterion) => (
+            <WcagCriteriaBadge
+              key={criterion.number}
+              criterion={criterion}
+              levelLabel={intl.formatMessage(
+                { id: 'topicHeader.levelLabel' },
+                { level: criterion.level },
+              )}
+              ariaLabel={intl.formatMessage(
+                { id: 'topicHeader.wcagBadgeAriaLabel' },
+                { number: criterion.number, title: criterion.title, level: criterion.level },
+              )}
+            />
+          ))}
+        </TopicHeader>
 
-      <div className="mt-10 flex flex-col gap-12">
-        <ContentSection heading={sections.whyThisMatters.heading}>
-          <p className="leading-relaxed text-muted-foreground">{sections.whyThisMatters.para1}</p>
-          <p className="leading-relaxed text-muted-foreground">{sections.whyThisMatters.para2}</p>
-        </ContentSection>
+        <div className="mt-10 flex flex-col gap-12">
+          <ContentSection
+            sectionId={camelToKebab('whyThisMatters')}
+            heading={sections.whyThisMatters.heading}
+            copyLinkLabel={copySectionLabels.copyLinkLabel}
+            copiedLabel={copySectionLabels.copiedLabel}
+          >
+            <p className="leading-relaxed text-muted-foreground">{sections.whyThisMatters.para1}</p>
+            <p className="leading-relaxed text-muted-foreground">{sections.whyThisMatters.para2}</p>
+          </ContentSection>
 
-        <ContentSection heading={sections.preferNativeElements.heading}>
-          <p className="leading-relaxed text-muted-foreground">
-            {sections.preferNativeElements.intro}
-          </p>
-          <CodeComparison
-            avoid={{
-              label: sections.preferNativeElements.avoid1Label,
-              code: sections.preferNativeElements.avoid1Code,
-            }}
-            prefer={{
-              label: sections.preferNativeElements.prefer1Label,
-              code: sections.preferNativeElements.prefer1Code,
-            }}
-          />
-          <CodeComparison
-            avoid={{
-              label: sections.preferNativeElements.avoid2Label,
-              code: sections.preferNativeElements.avoid2Code,
-            }}
-            prefer={{
-              label: sections.preferNativeElements.prefer2Label,
-              code: sections.preferNativeElements.prefer2Code,
-            }}
-          />
-        </ContentSection>
+          <ContentSection
+            sectionId={camelToKebab('preferNativeElements')}
+            heading={sections.preferNativeElements.heading}
+            copyLinkLabel={copySectionLabels.copyLinkLabel}
+            copiedLabel={copySectionLabels.copiedLabel}
+          >
+            <p className="leading-relaxed text-muted-foreground">
+              {sections.preferNativeElements.intro}
+            </p>
+            <CodeComparison
+              avoid={{
+                label: sections.preferNativeElements.avoid1Label,
+                code: sections.preferNativeElements.avoid1Code,
+              }}
+              prefer={{
+                label: sections.preferNativeElements.prefer1Label,
+                code: sections.preferNativeElements.prefer1Code,
+              }}
+            />
+            <CodeComparison
+              avoid={{
+                label: sections.preferNativeElements.avoid2Label,
+                code: sections.preferNativeElements.avoid2Code,
+              }}
+              prefer={{
+                label: sections.preferNativeElements.prefer2Label,
+                code: sections.preferNativeElements.prefer2Code,
+              }}
+            />
+          </ContentSection>
 
-        <ContentSection heading={sections.headingHierarchy.heading}>
-          <p className="leading-relaxed text-muted-foreground">{sections.headingHierarchy.para}</p>
-          <CodeComparison
-            avoid={{
-              label: sections.headingHierarchy.avoidLabel,
-              code: sections.headingHierarchy.avoidCode,
-            }}
-            prefer={{
-              label: sections.headingHierarchy.preferLabel,
-              code: sections.headingHierarchy.preferCode,
-            }}
-          />
-        </ContentSection>
+          <ContentSection
+            sectionId={camelToKebab('headingHierarchy')}
+            heading={sections.headingHierarchy.heading}
+            copyLinkLabel={copySectionLabels.copyLinkLabel}
+            copiedLabel={copySectionLabels.copiedLabel}
+          >
+            <p className="leading-relaxed text-muted-foreground">
+              {sections.headingHierarchy.para}
+            </p>
+            <CodeComparison
+              avoid={{
+                label: sections.headingHierarchy.avoidLabel,
+                code: sections.headingHierarchy.avoidCode,
+              }}
+              prefer={{
+                label: sections.headingHierarchy.preferLabel,
+                code: sections.headingHierarchy.preferCode,
+              }}
+            />
+          </ContentSection>
 
-        <ContentSection heading={sections.lists.heading}>
-          <p className="leading-relaxed text-muted-foreground">{sections.lists.para}</p>
-          <CodeComparison
-            avoid={{
-              label: sections.lists.avoidLabel,
-              code: sections.lists.avoidCode,
-            }}
-            prefer={{
-              label: sections.lists.preferLabel,
-              code: sections.lists.preferCode,
-            }}
-          />
-        </ContentSection>
+          <ContentSection
+            sectionId={camelToKebab('lists')}
+            heading={sections.lists.heading}
+            copyLinkLabel={copySectionLabels.copyLinkLabel}
+            copiedLabel={copySectionLabels.copiedLabel}
+          >
+            <p className="leading-relaxed text-muted-foreground">{sections.lists.para}</p>
+            <CodeComparison
+              avoid={{
+                label: sections.lists.avoidLabel,
+                code: sections.lists.avoidCode,
+              }}
+              prefer={{
+                label: sections.lists.preferLabel,
+                code: sections.lists.preferCode,
+              }}
+            />
+          </ContentSection>
 
-        <ContentSection heading={sections.tables.heading}>
-          <p className="leading-relaxed text-muted-foreground">{sections.tables.para}</p>
-          <CodeComparison
-            avoid={{
-              label: sections.tables.avoidLabel,
-              code: sections.tables.avoidCode,
-            }}
-            prefer={{
-              label: sections.tables.preferLabel,
-              code: sections.tables.preferCode,
-            }}
-          />
-        </ContentSection>
+          <ContentSection
+            sectionId={camelToKebab('tables')}
+            heading={sections.tables.heading}
+            copyLinkLabel={copySectionLabels.copyLinkLabel}
+            copiedLabel={copySectionLabels.copiedLabel}
+          >
+            <p className="leading-relaxed text-muted-foreground">{sections.tables.para}</p>
+            <CodeComparison
+              avoid={{
+                label: sections.tables.avoidLabel,
+                code: sections.tables.avoidCode,
+              }}
+              prefer={{
+                label: sections.tables.preferLabel,
+                code: sections.tables.preferCode,
+              }}
+            />
+          </ContentSection>
 
-        <ContentSection heading={sections.whenNativeIsntEnough.heading}>
-          <p className="leading-relaxed text-muted-foreground">
-            {sections.whenNativeIsntEnough.para}
-          </p>
-          <CodeComparison
-            avoid={{
-              label: sections.whenNativeIsntEnough.avoidLabel,
-              code: sections.whenNativeIsntEnough.avoidCode,
-            }}
-            prefer={{
-              label: sections.whenNativeIsntEnough.preferLabel,
-              code: sections.whenNativeIsntEnough.preferCode,
-            }}
-          />
-        </ContentSection>
-      </div>
-    </main>
+          <ContentSection
+            sectionId={camelToKebab('whenNativeIsntEnough')}
+            heading={sections.whenNativeIsntEnough.heading}
+            copyLinkLabel={copySectionLabels.copyLinkLabel}
+            copiedLabel={copySectionLabels.copiedLabel}
+          >
+            <p className="leading-relaxed text-muted-foreground">
+              {sections.whenNativeIsntEnough.para}
+            </p>
+            <CodeComparison
+              avoid={{
+                label: sections.whenNativeIsntEnough.avoidLabel,
+                code: sections.whenNativeIsntEnough.avoidCode,
+              }}
+              prefer={{
+                label: sections.whenNativeIsntEnough.preferLabel,
+                code: sections.whenNativeIsntEnough.preferCode,
+              }}
+            />
+          </ContentSection>
+        </div>
+      </main>
+    </>
   );
 }

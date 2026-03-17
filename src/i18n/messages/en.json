@@ -10,6 +10,9 @@
 
   "topicHeader.breadcrumbNav": "Breadcrumb",
   "topicHeader.wcagCriteriaLabel": "Relevant WCAG criteria",
+  "topicSideNav.ariaLabel": "On this page",
+  "topicSideNav.copyLinkLabel": "Copy link to this section",
+  "topicSideNav.copiedLabel": "Copied",
   "topicHeader.levelLabel": "Level {level}",
   "topicHeader.wcagBadgeAriaLabel": "WCAG {number} {title}, Level {level}, opens in new tab",
 
